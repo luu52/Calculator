@@ -93,31 +93,31 @@ function unhighlightOperators(vSymbol){
     }
 }
 
-function keyboard (x) { 
-    events = x || window.event;
-    k=events.keyCode;
-    if (k>47 && k<58) { 
-       p=k-48;
-       p=String(p)
-       getNumericValueClickingButton(p);
-    }
+//function keyboard (x) { 
+    //events = x || window.event;
+    //k=events.keyCode;
+    //if (k>47 && k<58) { 
+        //p=k-48;
+        //p=String(p)
+        //getNumericValueClickingButton(p);
+    //}
 
-    if (k == 27) calculatorReset('');
+    //if (k == 27) calculatorReset('');
 
-    if (k>95 && k<106) {
-       p=k-96;
-       p=String(p);
-       getNumericValueClickingButton(p);
-    }
-    if (k==110 || k==190 || k==188) getNumericValueClickingButton(",")
-    if (k==106) clickingOperationButtons('x')
-    if (k==107) clickingOperationButtons('+')
-    if (k==109 || k==189) clickingOperationButtons('-')
-    if (k==111 || k==191) clickingOperationButtons('/')
-    if (k==32 || k==187 || k==13) clickingOperationButtons('=')
-    if (k==27) calculatorReset('0')
-    if (k==17) changeToNegativeOrPositiveButton('-1')
-}
+    //if (k>95 && k<106) {
+       //p=k-96;
+       //p=String(p);
+       //getNumericValueClickingButton(p);
+    //}
+    //if (k==110 || k==190 || k==188) getNumericValueClickingButton(",")
+    //if (k==106) clickingOperationButtons('x')
+    //if (k==107) clickingOperationButtons('+')
+    //if (k==109 || k==189) clickingOperationButtons('-')
+    //if (k==111 || k==191) clickingOperationButtons('/')
+    //if (k==32 || k==187 || k==13) clickingOperationButtons('=')
+    //if (k==27) calculatorReset('0')
+    //if (k==17) changeToNegativeOrPositiveButton('-1')
+//}
 
 const numbers = document.querySelectorAll(".number");
 const operators = document.querySelectorAll(".operator");
@@ -128,7 +128,7 @@ let operator = "";
 let result = 0;
 
 function operator(key){
-        if (operator === "") { // Read first number if no operator set yet
+        if (operator == "") { // Read first number if no operator set yet
             firstNum += e.target.innerText;
         } else { // Read second number
             secondNum += e.target.innerText;
@@ -140,8 +140,6 @@ function equalBtn(){
             operator = e.target.innerText;
 
         } else { // If equals button clicked 
-            setResult(secondNum); // Print 2nd number
-            
             switch (operator) { // Calculate and print output
                 case "+":
                     result = parseFloat(firstNum) + parseFloat(secondNum);
