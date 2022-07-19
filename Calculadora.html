@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Calculadora</title>
+    <link href="style.css" rel="stylesheet" />
+    <link rel="icon" type="image/png" href="icon.png">
+
+    <script src="main.js"></script>
+</head>
+<body>
+    <div class="container">
+        <div class="calculator">
+            <div class="display">
+                <p id="displayid"></p>
+            </div>
+
+            <button class="btn-c" id="clear" onclick="clean()">C</button>
+            <button class="btn-ans" id="changeSign" onclick="changeSign()">+/-</button>
+            <button class="btn-divide" id="divide" value="divide" onclick="highlightOperators(this.value)">/</button>
+
+            <button class="btn-7" onclick="add('7')">7</button>
+            <button class="btn-8" onclick="add('8')">8</button>
+            <button class="btn-9" onclick="add('9')">9</button>
+            <button class="btn-x" id="multiply" value="multiply" onclick="highlightOperators(this.value)">x</button>
+
+            <button class="btn-4" onclick="add('4')">4</button>
+            <button class="btn-5" onclick="add('5')">5</button>
+            <button class="btn-6" onclick="add('6')">6</button>
+            <button class="btn-minus" id="substract" value="substract" onclick="highlightOperators(this.value)">-</button>
+
+            <button class="btn-1" onclick="add('1')">1</button>
+            <button class="btn-2" onclick="add('2')">2</button>
+            <button class="btn-3" onclick="add('3')">3</button>
+            <button class="btn-plus" id="sum" value="sum" onclick="highlightOperators(this.value)">+</button>
+            
+            <button class="btn-0" id="zero" onclick="add('0')">0</button>
+            <button class="btn-point" id="comma" onclick="add('.')">,</button>
+            <button class="btn-equal" id="equal" value="equal" onclick="equal()">=</button>
+        </div>
+    </div>
+
+
+</body>
+</html>
