@@ -1,4 +1,7 @@
-window.onload = function(){
+document.addEventListener("keydown", function(event) {event.preventDefault();});
+
+window.onload = function(vSymbol){
+    document.onkeydown = keyboard;
     setResult(0);
     clean(vSymbol);
 }
@@ -90,49 +93,72 @@ function unhighlightOperators(vSymbol){
     }
 }
 
-let vIsZero = true;
-
-document.onkeydown = function(event) {
-
-	let key_press = String.fromCharCode(event.keyCode);
-	let key_code = event.keyCode;
-	let inputVal = displayid.innerHTML;
-    let lastChar = inputVal[inputVal.length - 1];
-    let equation = inputVal;
-
- // Target each keypress and update the input screen
-    if(key_press==1) {
-        displayid.innerHTML += key_press;
-    }
-    if(key_press==2) {
-        displayid.innerHTML += key_press; 
-    }
-    if(key_press==3 || key_code == 32) {
-        displayid.innerHTML += key_press; 
-    }
-    if(key_press==4) {
-        displayid.innerHTML += key_press; 
-    }
-    if(key_press==5) {
-        displayid.innerHTML += key_press; 
-    }
-    if(key_press==6) {
-        displayid.innerHTML += key_press; 
-    }
-    if(key_press==7) {
-        displayid.innerHTML += key_press; 
-    }
-    if(key_press==8) {
-        displayid.innerHTML += key_press; 
-    }
-    if(key_press==9) {
-        displayid.innerHTML += key_press; 
-    }
-    if(key_press==0) {
-        displayid.innerHTML += key_press;
+function keyboard (x) { 
+    events = x || window.event;
+    k=events.keyCode;
+    if (k>47 && k<58) { 
+       p=k-48;
+       p=String(p)
+       getNumericValueClickingButton(p);
     }
 
-  
+    if (k == 27) calculatorReset('');
+
+    if (k>95 && k<106) {
+       p=k-96;
+       p=String(p);
+       getNumericValueClickingButton(p);
+    }
+    if (k==110 || k==190 || k==188) getNumericValueClickingButton(",")
+    if (k==106) clickingOperationButtons('x')
+    if (k==107) clickingOperationButtons('+')
+    if (k==109 || k==189) clickingOperationButtons('-')
+    if (k==111 || k==191) clickingOperationButtons('/')
+    if (k==32 || k==187 || k==13) clickingOperationButtons('=')
+    if (k==27) calculatorReset('0')
+    if (k==17) changeToNegativeOrPositiveButton('-1')
 }
 
+const numbers = document.querySelectorAll(".number");
+const operators = document.querySelectorAll(".operator");
+
+let firstNum = "";
+let secondNum = "";
+let operator = "";
+let result = 0;
+
+function operator(key){
+        if (operator === "") { // Read first number if no operator set yet
+            firstNum += e.target.innerText;
+        } else { // Read second number
+            secondNum += e.target.innerText;
+        }
+}
+
+function equalBtn(){
+        if (e.target.innerText !== "=") { // If the operator is not equals
+            operator = e.target.innerText;
+
+        } else { // If equals button clicked 
+            setResult(secondNum); // Print 2nd number
+            
+            switch (operator) { // Calculate and print output
+                case "+":
+                    result = parseFloat(firstNum) + parseFloat(secondNum);
+                    break;
+                case "-":
+                    result = parseFloat(firstNum) - parseFloat(secondNum);
+                    break;
+                case "*":
+                    result = parseFloat(firstNum) * parseFloat(secondNum);
+                    break;
+                case "/":
+                    result = parseFloat(firstNum) / parseFloat(secondNum);
+                break;
+                default:
+                    break;
+            }
+        }
+        setResult(result);
+}
 
