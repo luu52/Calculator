@@ -132,32 +132,6 @@ document.onkeydown = function(event) {
         displayid.innerHTML += key_press;
     }
 
-  // Cature operators and prevent from addint two consecutuve operators
-  
-    if ((inputVal != '' && operators.indexOf(lastChar) == -1 && key_code == 187 && event.shiftKey) || (key_code == 107) || (key_code == 61 && event.shiftKey)) {
-      document.querySelector('.displayid').innerHTML += '+';
-  }
-    if ((inputVal != '' && operators.indexOf(lastChar) == -1 && key_code == 189 && event.shiftKey) || (inputVal != '' && operators.indexOf(lastChar) == -1 && key_code == 107)) {
-      document.querySelector('.displayid').innerHTML += '-';
-  }
-    if ((inputVal != '' && operators.indexOf(lastChar) == -1 && key_code == 56 && event.shiftKey) || (inputVal != '' && operators.indexOf(lastChar) == -1 && key_code == 106)) {
-      document.querySelector('.displayid').innerHTML += 'x';
-  }
-    if ((inputVal != '' && operators.indexOf(lastChar) == -1 && key_code == 191) || (inputVal != '' && operators.indexOf(lastChar) == -1 && key_code == 111)) {
-      document.querySelector('.displayid').innerHTML += '÷';
-  }
-    if ((inputVal != '' && operators.indexOf(lastChar) == -1 && key_code == 54 && event.shiftKey)) {
-      document.querySelector('.displayid').innerHTML += '^';
-  }
-    if(key_code==13 || key_code==187 && event.shiftKey == false) {
-        displayid.innerHTML = eval(equation);
-      //reset decimal added flag
-      decimalAdded =false;
-  }
-    if(key_code==8 || key_code==46) {
-            displayid.innerHTML = '';
-			decimalAdded = false;
-  }
   
 }
 

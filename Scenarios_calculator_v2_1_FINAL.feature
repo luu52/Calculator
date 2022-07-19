@@ -153,7 +153,7 @@ Examples:
 |         23,58|    /    |       10,14|  2,325443787|
 |            10|    /    |          -2|           -5|
 |           -10|    /    |           2|           -5|
-|           -10|    /    |          -2|            5|
+|           -10|    /    |          -2|            5| 
 
 Scenario Outline: Before clicking the equal button
 Given in the display screen the number <numberOnScreen> is shown
