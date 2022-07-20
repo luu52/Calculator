@@ -109,7 +109,7 @@ Examples:
 |          1234| +/-  |        -1234|
 |         -1234| +/-  |         1234|
 
-Scenario Outline: Writing more than 10 digits                                                          HECHO
+Scenario Outline: Writing more than 10 digits                                                           HECHO
 Given in the display screen the number <numberOnScreen> is shown
 When the user presses <Action>
 Then in the display screen should be shown <resultDisplay>
