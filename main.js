@@ -1,3 +1,5 @@
+let isHighlighted = true;
+let vLastHighlighted;
 let firstNum = "";
 let operationSymbol = "";
 let secondNum = "";
@@ -46,9 +48,6 @@ function changeSign() {
   negative = negative + number.replace(",", ".");
   setResult(-negative);
 }
-
-let isHighlighted = true;
-let vLastHighlighted;
 
 function highlightOperators(vSymbol) {
   unhighlightOperators(vLastHighlighted);
@@ -103,32 +102,44 @@ function getFirstNum(op){
     showSecondNum = true;
     operationSymbol = op;
     firstNum = getResult();
-    firstNum =  firstNum + firstNum.replace(",",".");
+    firstNum = firstNum.replace(",",".");
 }
 
-function getSecondNum(displayVal){
+function getSecondNum(){
     secondNum = getResult();
-    secondNum = secondNum + secondNum.replace(",",".");
+    secondNum = secondNum.replace(",",".");
 }
 
 function equalBtn() {
   switch (operationSymbol) {
     case "+":
-      result = parseFloat(firstNum) + parseFloat(secondNum);
+      result = Number((parseFloat(firstNum) + parseFloat(secondNum)).toFixed(9));
       break;
     case "-":
-      result = parseFloat(firstNum) - parseFloat(secondNum);
+      result = Number((parseFloat(firstNum) - parseFloat(secondNum)).toFixed(9));
       break;
     case "*":
-      result = parseFloat(firstNum) * parseFloat(secondNum);
+      result = Number((parseFloat(firstNum) * parseFloat(secondNum)).toFixed(9));
       break;
     case "/":
-      result = parseFloat(firstNum) / parseFloat(secondNum);
+      result = Number((parseFloat(firstNum) / parseFloat(secondNum)).toFixed(9));
       break;
     default:
       break;
   }
   setResult(result);
+  moreThanTenNums();
   firstNum = 0;
   secondNum = 0;
+}
+
+function moreThanTenNums(){
+    let result = getResult();
+    if (result.length > 10 ) {
+        setResult("ERROR");
+    }
+}
+
+function tenNumWithComma(){
+
 }

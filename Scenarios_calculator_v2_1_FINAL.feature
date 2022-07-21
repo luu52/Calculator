@@ -5,6 +5,8 @@ Background:
     
 Scenario: Default display screen                                                                        HECHO
 Then in the display screen should be show a 0
+And no button should be highlighted
+And all buttons should be enabled except +/- and 0
 
 Scenario Outline: Clicking non-operators screen buttons                                                 HECHO
 Given in the display screen the number <numberOnScreen> is shown
@@ -48,7 +50,7 @@ Examples:
 |   =  |
 |   C  |
 
-Scenario Outline: Pressing non-operators keys                                                            FALTA
+Scenario Outline: Pressing non-operators keys                                                            HECHO
 Given in the display screen the number <numberOnScreen> is shown
 When the user press the <Key> key
 Then in the display screen should be show a <Button>
@@ -72,7 +74,7 @@ Examples:
 |             1| Right Ctrl |            -1 |
 |             1|  Left Ctrl |            -1 |
 
-Scenario Outline: Pressing operators keys                                                               HECHO
+Scenario Outline: Pressing operators keys                                                                  HECHO
 When the user press the <Key> key
 Then the <Key> button should be highlighted
 
@@ -83,7 +85,15 @@ Examples:
 |   /  |
 |   *  |
 
-Scenario Outline: Writing numbers                                                                       HECHO
+Scenario: Doing an operation with keyboard
+Given the user opens the app
+And the user presses the 2 key
+And the user presses the + key
+And the user presses the 3 key
+When the user presses the enter key
+Then the display should show a 5
+
+Scenario Outline: Writing numbers                                                                         HECHO
 Given in the display screen the number <numberOnScreen> is shown
 When the user press the number <Button>
 Then in the display screen should be show a <resultDisplay>
@@ -109,7 +119,7 @@ Examples:
 |          1234| +/-  |        -1234|
 |         -1234| +/-  |         1234|
 
-Scenario Outline: Writing more than 10 digits                                                           HECHO
+Scenario Outline: Writing more than 10 digits                                                            HECHO
 Given in the display screen the number <numberOnScreen> is shown
 When the user presses <Action>
 Then in the display screen should be shown <resultDisplay>
@@ -123,7 +133,7 @@ Examples:
 |    123456789,|    5   |  123456789,5|
 |   123456789,5|   +/-  | -123456789,5|
 
-Scenario Outline: Performing two number operations
+Scenario Outline: Performing two number operations                                                       HECHO
 Given in the display screen the number <numberOnScreen> is shown
 When the user press the <operator>
 And the user writes the number: <secondNumber>
@@ -153,9 +163,9 @@ Examples:
 |         23,58|    /    |       10,14|  2,325443787|
 |            10|    /    |          -2|           -5|
 |           -10|    /    |           2|           -5|
-|           -10|    /    |          -2|            5| 
+|           -10|    /    |          -2|            5|
 
-Scenario Outline: Before clicking the equal button
+Scenario Outline: Before clicking the equal button                                                       HECHO
 Given in the display screen the number <numberOnScreen> is shown
 When the user press the <operator>
 And the user writes the number: <secondNumber>                       
@@ -168,7 +178,7 @@ Examples:
 |         13,14|    *    |       2,781|        2,781|
 |            84|    /    |        -4,3|         -4,3|
 
-Scenario Outline: Performing two number operations with a result number with more than 10 digits
+Scenario Outline: Performing two number operations with a result number with more than 10 nondecimal digits            HECHO
 Given in the display screen the number 9999999999 is shown
 When the user press <operator>
 And the user writes the number: <secondNumber>
@@ -182,12 +192,17 @@ Examples:
 |    9999999999|    *    |           2|
 |    9999999999|    /    |         0,1|
 
-Scenario: Clicking the C button
+Scenario: Clicking the C button                                                                            HECHO
 Given the user opens the Calculator
-When I click the C button
-Then the Calculator resets
+When the user clicks the C button
+Then the Calculator display returns to the default
 
-Scenario Outline: Clicking two different operation buttons
+Scenario: Pressing the escape key
+Given the user opens the Calculator
+When the user presses the escape key
+Then the Calculator display returns to the default
+
+Scenario Outline: Clicking two different operation buttons                                                HECHO
 Given in the display screen the number <firstNumber> is shown
 When the user presses <Button>
 And the user presses <Button2>
@@ -253,7 +268,7 @@ Given in the display screen the number <numberOnScreen> is shown
 And the user press /
 And the user writes the number: 0
 When the user press the =  
-Then in the display screen should be show ERROR
+Then the display screen should show ERROR
 
 Examples:
 |numberOnScreen|
@@ -265,7 +280,7 @@ Scenario: Doing an operation without a second number
 Given in the display screen the number 23 is shown
 And the user press +
 And the user press the = 
-Then in the display screen should be show ERROR
+Then the display screen should show ERROR
 
 Scenario: Doing an operation without a first number
 Given the user opens the app
@@ -274,10 +289,10 @@ And the user writes 23
 And the user presses the = 
 Then the display screen should show -23
 
-Scenario: Button Disabled
+Scenario: Button Disabled -> Do it on Figma
 Given in the display screen the -123456789,5 is shown
-When I hover over a numerical button
-Then the cursos does not change to a clicking cursor
+When the user hovers over a numerical button
+Then the cursor does not change to a clicking cursor
 
 Scenario Outline: Disabling buttons
 Given in the display screen the <numberOnScreen> is shown
@@ -294,14 +309,37 @@ Scenario: Disabling the second comma
 Given in the display screen the number 3,141592 is shown
 Then the comma button is disabled
 
-Scenario: Disabling because of error
-Given in the display screen an ERROR is displayed
+Scenario Outline: Disabling the changing signs button
+Given the user opens the app
+When the user clicks the sequence of buttons <sequence>
+Then the changing signs should be disabled
+
+Example:
+|sequence|
+|     0  |
+|    0 , |
+|  2 +   |
+| 1 / 0 =|
+
+Scenario Outline: Disabling because of error
+Given the user opens the app
+When the user clicks the sequence of buttons <sequence>
 Then all buttons except the C button are disabled
+
+Example:
+|sequence|
+|1 / 0 = |
+|1 / 0 + |
+|1 / =   |
+|9999999999 + 1 =|
+|9999999999 + 1 *|
+|9999999999 +/- - 1 =|
+|9999999999 +/- - 1 /|
 
 Scenario Outline: Reenabling buttons with no error
 Given there are unabled buttons
 And no ERROR on the display screen
-When I click on the button <button>
+When the user clicks on the button <button>
 Then all buttons are enabled again
 
 Examples:
@@ -316,7 +354,7 @@ Examples:
 Scenario: Reenabling buttons with error
 Given there are unabled buttons
 And there is an ERROR on the display screen
-When I click on the button C
+When the user clicks on the button C
 Then all buttons are enabled again
 
 Scenario Outline: Showing the first number after pressing operation
